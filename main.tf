@@ -103,7 +103,7 @@ resource "aws_lb_target_group" "app" {
 
     enabled = true
 
-    path = "/"
+    path = "/health"
 
     protocol = "HTTP"
 
