@@ -1,0 +1,57 @@
+name: Destroy Infrastructure
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: terraform-state
+  cancel-in-progress: true
+    
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+
+      ##################################################
+      # Checkout
+      ##################################################
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      ##################################################
+      # Setup Terraform
+      ##################################################
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      ##################################################
+      # Configure AWS Credentials
+      ##################################################
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      ##################################################
+      # Terraform Init
+      ##################################################
+
+      - name: Terraform Init
+        run: terraform init -reconfigure
+
+      ##################################################
+      # Terraform Destroy
+      ##################################################
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
