@@ -4,4 +4,4 @@ container_port = 5000
 
 listener_priority = 105
 
-path_pattern = "/*"
+path_pattern = "/Saishma/*"
