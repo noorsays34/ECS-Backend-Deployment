@@ -50,6 +50,13 @@ jobs:
         run: terraform init -reconfigure
 
       ##################################################
+      # Terraform Apply (update state with force_* flags)
+      ##################################################
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+
+      ##################################################
       # Terraform Destroy
       ##################################################
 
