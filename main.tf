@@ -54,7 +54,8 @@ data "aws_security_group" "ecs_sg" {
 
 resource "aws_ecr_repository" "app" {
 
-  name = var.app_name
+  name         = var.app_name
+  force_delete = true
 
   image_scanning_configuration {
     scan_on_push = true
@@ -285,7 +286,8 @@ resource "aws_lb_listener_rule" "app" {
 
 resource "aws_s3_bucket" "frontend" {
 
-  bucket = var.frontend_bucket_name
+  bucket        = var.frontend_bucket_name
+  force_destroy = true
 
   tags = {
     Project = "CONC"
