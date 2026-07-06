@@ -43,3 +43,13 @@ variable "listener_priority" {
 variable "path_pattern" {
   type = string
 }
+
+variable "frontend_bucket_name" {
+  type    = string
+  default = "saishma-frontend-bucket"
+}
+
+variable "cloudfront_price_class" {
+  type    = string
+  default = "PriceClass_100"
+}
