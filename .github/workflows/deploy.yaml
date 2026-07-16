@@ -34,6 +34,15 @@ jobs:
 
       - run: terraform validate
 
+      - name: Run Trivy IaC scan
+        uses: aquasecurity/trivy-action@0.29.0
+        with:
+          scan-type: 'config'
+          scan-ref: '.'
+          format: 'table'
+          exit-code: '0'
+          severity: 'CRITICAL,HIGH'
+
       - run: terraform plan
 
       - run: terraform apply -auto-approve
